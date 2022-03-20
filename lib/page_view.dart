@@ -4,12 +4,42 @@ class PageViewController extends StatefulWidget {
   PageViewController({Key? key}) : super(key: key);
 
   @override
-  State<PageViewController> createState() => _PageViewControllerState();
+  _PageViewControllerState createState() => _PageViewControllerState();
 }
 
 class _PageViewControllerState extends State<PageViewController> {
+  int selectedIndex = 0;
+  PageController _pageController = PageController();
+  List<Widget> pages = [
+    HomeScreen(),
+    SearchScreen(),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      backgroundColor: Color(0xffFBFBFB),
+      appBar: (selectedIndex == 0) ? HomeAppBar() : null,
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
+        children: pages,
+      ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: selectedIndex,
+        onTap: (index) {
+          setState(() {
+            selectedIndex =
+                (index <= pages.length - 1) ? index : pages.length - 1;
+          });
+          _pageController.animateToPage(index,
+              duration: Duration(milliseconds: 500), curve: Curves.ease);
+        },
+      ),
+    );
   }
 }
