@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hotel_app/screens/home_screen.dart';
+import 'package:flutter_hotel_app/screens/search_screen.dart';
 
 class PageViewController extends StatefulWidget {
   PageViewController({Key? key}) : super(key: key);
